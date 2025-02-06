@@ -19,8 +19,29 @@ body {
     color: white;
 }
 
+.form-check-label{
+    font-size: 12px !important;
+}
+
+.xxj{
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
 .bg-content label{
     font-size: 14px;
+}
+
+.jer label{
+    display: none;
+}
+
+.bg-content input{
+    background-color: rgb(10, 10, 10);
+    border: 1px solid rgba(56, 57, 57, 0.31);
+    border-radius: 15px;
+    padding: 10px;
 }
 
 .fixed-height {
