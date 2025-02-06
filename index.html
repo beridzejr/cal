@@ -55,22 +55,22 @@
 
             <button id="addButton" class="btn btn-primary">Add</button>
             <button id="resetButton" class="btn btn-secondary">Reset Totals</button>
-
-            <div class="mt-4">
-                <h3>Goals</h3>
-                <p>Calories: <span id="goalCalories">2650</span> kcal</p>
-                <p>Protein: <span id="goalProtein">194</span>g</p>
-                <p>Carbs: <span id="goalCarbs">288</span>g</p>
-                <p>Fat: <span id="goalFat">80</span>g</p>
-            </div>
         </div>
 
         <div class="col-md-6">
+            <div class="mt-4">
+                <h3>Goals <button id="editGoalsButton" class="btn btn-sm btn-outline-secondary">Edit</button></h3>
+                <p>Calories: <span id="goalCalories"></span> kcal</p>
+                <p>Protein: <span id="goalProtein"></span>g</p>
+                <p>Carbs: <span id="goalCarbs"></span>g</p>
+                <p>Fat: <span id="goalFat"></span>g</p>
+            </div>
+
             <h3>Totals</h3>
-            <p>Calories: <span id="totalCalories">0</span> / <span id="goalCaloriesDisplay">2650</span> kcal</p>
-            <p>Protein: <span id="totalProtein">0</span>g / <span id="goalProteinDisplay">194</span>g</p>
-            <p>Carbs: <span id="totalCarbs">0</span>g / <span id="goalCarbsDisplay">288</span>g</p>
-            <p>Fat: <span id="totalFat">0</span>g / <span id="goalFatDisplay">80</span>g</p>
+            <p>Calories: <span id="totalCalories">0</span> / <span id="goalCaloriesDisplay"></span> kcal</p>
+            <p>Protein: <span id="totalProtein">0</span>g / <span id="goalProteinDisplay"></span>g</p>
+            <p>Carbs: <span id="totalCarbs">0</span>g / <span id="goalCarbsDisplay"></span>g</p>
+            <p>Fat: <span id="totalFat">0</span>g / <span id="goalFatDisplay"></span>g</p>
         </div>
     </div>
 
@@ -120,12 +120,46 @@
                         <input type="checkbox" class="form-check-input" id="editIsDirect">
                         <label class="form-check-label" for="editIsDirect">Direct Entry?</label>
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="saveEditButton">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editGoalsModal" tabindex="-1" aria-labelledby="editGoalsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editGoalsModalLabel">Edit Goals</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editGoalsForm">
+                    <div class="mb-3">
+                        <label for="editGoalKcal" class="form-label">Goal Calories (kcal):</label>
+                        <input type="number" class="form-control" id="editGoalKcal" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editGoalProtein" class="form-label">Goal Protein (g):</label>
+                        <input type="number" class="form-control" id="editGoalProtein" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editGoalCarbs" class="form-label">Goal Carbs (g):</label>
+                        <input type="number" class="form-control" id="editGoalCarbs" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editGoalFat" class="form-label">Goal Fat (g):</label>
+                        <input type="number" class="form-control" id="editGoalFat" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveGoalsButton">Save Goals</button>
             </div>
         </div>
     </div>
