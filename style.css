@@ -1,6 +1,10 @@
 body {
     font-family: sans-serif;
     background-color: rgb(10, 10, 10);
+    background-image: url("img_1.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 .card-container {
     display: flex;
