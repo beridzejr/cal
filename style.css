@@ -1,5 +1,6 @@
 body {
     font-family: sans-serif;
+    background-color: rgb(10, 10, 10);
 }
 .card-container {
     display: flex;
