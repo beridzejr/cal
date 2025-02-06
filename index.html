@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENCORE</title>
+    <title>Africa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="img.png" type="image/x-icon">
 </head>
 <body>
 <div class="container">
-    <h1 class="mt-3 mb-5 text-white">^MAMAVACXONE^</h1>
+    <h1 class="mt-4 mb-5 text-white text-center fs-3 fw-bold">AF RI CA</h1>
 
     <div class="row">
         <div class="col-md-6">
-            <div class="mb-3">
+            <div class="mb-3 bg-content p-4">
                 <label class="form-label">Entry Type:</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="entryType" id="weightEntry" value="weight" checked>
@@ -30,7 +29,7 @@
                 </div>
             </div>
 
-            <div id="weightInputs" class="mb-3">
+            <div id="weightInputs" class="mb-3 bg-content p-4">
                 <label for="foodWeight" class="form-label">Weight (g):</label>
                 <input type="number" class="form-control" id="foodWeight">
                 <label for="foodKcal" class="form-label">Calories (per 100g):</label>
@@ -43,7 +42,7 @@
                 <input type="number" class="form-control" id="foodFat">
             </div>
 
-            <div id="directInputs" class="mb-3" style="display: none;">
+            <div id="directInputs" class="mb-3 bg-content p-4" style="display: none;">
                 <label for="directKcal" class="form-label">Calories:</label>
                 <input type="number" class="form-control" id="directKcal">
                 <label for="directProtein" class="form-label">Protein (g):</label>
@@ -58,20 +57,24 @@
             <button id="resetButton" class="btn btn-secondary">Reset Totals</button>
         </div>
 
-        <div class="col-md-6">
-            <div class="mt-4">
-                <h3>Goals <button id="editGoalsButton" class="btn btn-sm btn-outline-secondary">Edit</button></h3>
-                <p>Calories: <span id="goalCalories"></span> kcal</p>
-                <p>Protein: <span id="goalProtein"></span>g</p>
-                <p>Carbs: <span id="goalCarbs"></span>g</p>
-                <p>Fat: <span id="goalFat"></span>g</p>
-            </div>
+        <div class="col-md-6" >
+            <div class="d-flex justify-content-center align-items-center gap-3 flex-column">
+                <div class="bg-content p-4 w-100">
+                    <h3>Goals <button id="editGoalsButton" class="btn btn-sm btn-outline-secondary">Edit</button></h3>
+                    <p>Calories: <span id="goalCalories"></span> kcal</p>
+                    <p>Protein: <span id="goalProtein"></span>g</p>
+                    <p>Carbs: <span id="goalCarbs"></span>g</p>
+                    <p>Fat: <span id="goalFat"></span>g</p>
+                </div>
 
-            <h3>Totals</h3>
-            <p>Calories: <span id="totalCalories">0</span> / <span id="goalCaloriesDisplay"></span> kcal</p>
-            <p>Protein: <span id="totalProtein">0</span>g / <span id="goalProteinDisplay"></span>g</p>
-            <p>Carbs: <span id="totalCarbs">0</span>g / <span id="goalCarbsDisplay"></span>g</p>
-            <p>Fat: <span id="totalFat">0</span>g / <span id="goalFatDisplay"></span>g</p>
+                <div class="bg-content p-4 w-100 fixed-height">
+                    <h3>Totals</h3>
+                    <p>Calories: <span id="totalCalories">0</span> / <span id="goalCaloriesDisplay"></span> kcal</p>
+                    <p>Protein: <span id="totalProtein">0</span>g / <span id="goalProteinDisplay"></span>g</p>
+                    <p>Carbs: <span id="totalCarbs">0</span>g / <span id="goalCarbsDisplay"></span>g</p>
+                    <p>Fat: <span id="totalFat">0</span>g / <span id="goalFatDisplay"></span>g</p>
+                </div>
+            </div>
         </div>
     </div>
 

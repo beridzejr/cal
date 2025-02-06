@@ -71,7 +71,7 @@ function addFoodEntry(date, weight, kcal, protein, carbs, fat, isDirect) {
         return;
     }
     if (!isDirect && (isNaN(weight) || isNaN(kcal) || isNaN(protein) || isNaN(carbs) || isNaN(fat))) {
-        alert("Please enter valid numeric values for weight-based entry.");
+        alert("შე ბოზო ჯერ მონაცემები შეიყვანე და მერე დამაჭირე! არ გამიტრაკაა!");
         return;
     }
 
