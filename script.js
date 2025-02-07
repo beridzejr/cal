@@ -1,4 +1,4 @@
-// Get elements (including new ones for goals editing)
+// Get elements
 const addButton = document.getElementById('addButton');
 const resetButton = document.getElementById('resetButton');
 const totalCalories = document.getElementById('totalCalories');
@@ -24,19 +24,26 @@ const directProtein = document.getElementById('directProtein');
 const directCarbs = document.getElementById('directCarbs');
 const directFat = document.getElementById('directFat');
 
-// --- Goal Elements ---
 const editGoalsButton = document.getElementById('editGoalsButton');
 const goalCalories = document.getElementById('goalCalories');
 const goalProtein = document.getElementById('goalProtein');
 const goalCarbs = document.getElementById('goalCarbs');
 const goalFat = document.getElementById('goalFat');
-const goalCaloriesDisplay = document.getElementById('goalCaloriesDisplay'); //For totals section
+const goalCaloriesDisplay = document.getElementById('goalCaloriesDisplay');
 const goalProteinDisplay = document.getElementById('goalProteinDisplay');
 const goalCarbsDisplay = document.getElementById('goalCarbsDisplay');
 const goalFatDisplay = document.getElementById('goalFatDisplay');
 
+// Audio element
+let audio = document.getElementById('clickSound');
+if (!audio) {
+    audio = document.createElement('audio');
+    audio.id = 'clickSound';
+    audio.src = 'e.mp3'; // **REPLACE WITH YOUR SOUND FILE PATH**
+    document.body.appendChild(audio);
+}
 
-// Goals (load from local storage or use defaults)
+// Goals
 let goals = JSON.parse(localStorage.getItem('goals')) || {
     kcal: 2650,
     protein: 194,
@@ -44,23 +51,20 @@ let goals = JSON.parse(localStorage.getItem('goals')) || {
     fat: 80
 };
 
-// --- Display Goals ---
 function displayGoals() {
     goalCalories.textContent = goals.kcal;
     goalProtein.textContent = goals.protein;
     goalCarbs.textContent = goals.carbs;
     goalFat.textContent = goals.fat;
-    goalCaloriesDisplay.textContent = goals.kcal; // Update totals section
+    goalCaloriesDisplay.textContent = goals.kcal;
     goalProteinDisplay.textContent = goals.protein;
     goalCarbsDisplay.textContent = goals.carbs;
     goalFatDisplay.textContent = goals.fat;
 }
 
-
-// Load entries from local storage
+// Food entries
 let foodEntries = JSON.parse(localStorage.getItem('foodEntries')) || [];
 
-// --- addFoodEntry (no changes)---
 function addFoodEntry(date, weight, kcal, protein, carbs, fat, isDirect) {
     if (!date) {
         alert("Please select a date.");
@@ -71,7 +75,7 @@ function addFoodEntry(date, weight, kcal, protein, carbs, fat, isDirect) {
         return;
     }
     if (!isDirect && (isNaN(weight) || isNaN(kcal) || isNaN(protein) || isNaN(carbs) || isNaN(fat))) {
-        alert("შე ბოზო ჯერ მონაცემები შეიყვანე და მერე დამაჭირე! არ გამიტრაკაა!");
+        alert("შე ბოზო ჯერ მონაცემები შეიყვანე და მერე დამაჭირე! არ გამიტრაკაა!"); // Keep this if you want :)
         return;
     }
 
@@ -81,7 +85,6 @@ function addFoodEntry(date, weight, kcal, protein, carbs, fat, isDirect) {
     updateTotals();
     displayEntries();
 
-    // Clear inputs after adding
     if (isDirect) {
         directKcal.value = '';
         directProtein.value = '';
@@ -96,10 +99,11 @@ function addFoodEntry(date, weight, kcal, protein, carbs, fat, isDirect) {
     }
 }
 
-// --- processInput (no changes) ---
 function processInput() {
     const today = new Date().toISOString().split('T')[0];
     let isDirect = directEntryRadio.checked;
+
+    playSound(); // Play sound
 
     if (isDirect) {
         const kcal = parseFloat(directKcal.value);
@@ -117,7 +121,16 @@ function processInput() {
     }
 }
 
-// Update totals (no changes)
+function playSound() {
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(error => {
+            console.error("Error playing sound:", error);
+            alert("Sound could not be played. Please check your browser settings or try a different sound file.");
+        });
+    }
+}
+
 function updateTotals() {
     let totals = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
     const filterDate = dateFilter.value;
@@ -145,7 +158,6 @@ function updateTotals() {
     totalFat.textContent = totals.fat.toFixed(1);
 }
 
-// Delete entry (no changes)
 function deleteEntry(index) {
     foodEntries.splice(index, 1);
     localStorage.setItem('foodEntries', JSON.stringify(foodEntries));
@@ -153,12 +165,10 @@ function deleteEntry(index) {
     displayEntries();
 }
 
-// --- editEntry (no changes) ---
 function editEntry(index) {
     const entry = foodEntries[index];
     const modal = new bootstrap.Modal(document.getElementById('editModal'));
 
-    // Prefill the modal's form fields
     document.getElementById('editDate').value = entry.date;
     document.getElementById('editWeight').value = entry.weight || '';
     document.getElementById('editKcal').value = entry.kcal;
@@ -193,7 +203,7 @@ function editEntry(index) {
             date: updatedDate,
             weight: updatedWeight,
             kcal: updatedKcal,
-            protein: updatedProtein,
+            protein: updated,
             carbs: updatedCarbs,
             fat: updatedFat,
             isDirect: updatedIsDirect
@@ -207,7 +217,7 @@ function editEntry(index) {
 
     modal.show();
 }
-// --- displayEntries (no changes) ---
+
 function displayEntries() {
     cardContainer.innerHTML = '';
     const filterDate = dateFilter.value;
@@ -253,7 +263,6 @@ function displayEntries() {
     });
 }
 
-// Reset totals function (no changes)
 function resetTotals() {
     foodEntries = [];
     localStorage.setItem('foodEntries', JSON.stringify(foodEntries));
@@ -261,46 +270,39 @@ function resetTotals() {
     displayEntries();
 }
 
-// --- Edit Goals Logic ---
 function editGoals() {
     const modal = new bootstrap.Modal(document.getElementById('editGoalsModal'));
 
-    // Prefill modal with current goal values
     document.getElementById('editGoalKcal').value = goals.kcal;
     document.getElementById('editGoalProtein').value = goals.protein;
     document.getElementById('editGoalCarbs').value = goals.carbs;
     document.getElementById('editGoalFat').value = goals.fat;
 
-    // Save goals on button click
     document.getElementById('saveGoalsButton').onclick = () => {
         const updatedKcal = parseFloat(document.getElementById('editGoalKcal').value);
         const updatedProtein = parseFloat(document.getElementById('editGoalProtein').value);
         const updatedCarbs = parseFloat(document.getElementById('editGoalCarbs').value);
         const updatedFat = parseFloat(document.getElementById('editGoalFat').value);
 
-        // Validate input (ensure they are numbers)
         if (isNaN(updatedKcal) || isNaN(updatedProtein) || isNaN(updatedCarbs) || isNaN(updatedFat)) {
             alert("Please enter valid numeric values for the goals.");
-            return; // Stop if input is invalid
+            return;
         }
 
-        // Update goals object
         goals.kcal = updatedKcal;
         goals.protein = updatedProtein;
         goals.carbs = updatedCarbs;
         goals.fat = updatedFat;
 
-        // Save to local storage
         localStorage.setItem('goals', JSON.stringify(goals));
 
-        // Update display
         displayGoals();
-        updateTotals(); // Recalculate totals with new goals
+        updateTotals();
 
-        modal.hide(); // Close the modal
+        modal.hide();
     };
 
-    modal.show(); // Show the modal
+    modal.show();
 }
 
 // Event listeners
@@ -310,7 +312,7 @@ dateFilter.addEventListener('change', () => {
     updateTotals();
     displayEntries();
 });
-editGoalsButton.addEventListener('click', editGoals); // Listener for edit goals button
+editGoalsButton.addEventListener('click', editGoals);
 
 weightEntryRadio.addEventListener('change', () => {
     weightInputsDiv.style.display = 'block';
@@ -323,6 +325,6 @@ directEntryRadio.addEventListener('change', () => {
 });
 
 // Initial setup
-displayGoals(); // Display initial goals
+displayGoals();
 updateTotals();
 displayEntries();
